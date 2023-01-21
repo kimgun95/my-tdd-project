@@ -18,8 +18,8 @@ public class GameTest {
     void setUp() {
         game = new Game();
     }
-    private void rollMany(int frames, int pins) {
-        for (int i = 0; i < frames; i++) {
+    private void rollMany(int rolls, int pins) {
+        for (int i = 0; i < rolls; i++) {
             game.roll(pins);
         }
     }
