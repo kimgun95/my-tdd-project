@@ -1,4 +1,7 @@
+package Game;
+
 import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -34,19 +37,19 @@ public class GameTest {
     @Test
     public void gutterGame() {
         rollMany(20, 0);
-        assertThat(game.getScore(), is(0));
+        MatcherAssert.assertThat(game.getScore(), is(0));
     }
     @Test
     public void allOnes() {
         rollMany(20, 1);
-        assertThat(game.getScore(), is(20));
+        MatcherAssert.assertThat(game.getScore(), is(20));
     }
     @Test
     public void oneSpare() {
         rollSpare();
         game.roll(3);
         rollMany(17, 0);
-        assertThat(game.getScore(), is(16));
+        MatcherAssert.assertThat(game.getScore(), is(16));
     }
     @Test
     public void oneStrike() {
@@ -54,13 +57,13 @@ public class GameTest {
         game.roll(5);
         game.roll(3);
         rollMany(16, 0);
-        assertThat(game.getScore(), is(26));
+        MatcherAssert.assertThat(game.getScore(), is(26));
     }
     @Test
     public void perfectGame() {
         rollMany(10, 10);
         game.roll(10);
         game.roll(10);
-        assertThat(game.getScore(), is(300));
+        MatcherAssert.assertThat(game.getScore(), is(300));
     }
 }
