@@ -1,6 +1,5 @@
 package Game;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
