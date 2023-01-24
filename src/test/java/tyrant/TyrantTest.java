@@ -12,28 +12,44 @@ import static org.hamcrest.core.Is.is;
 
 public class TyrantTest {
 
+
   @Test
   public void tyrant에put한뒤get하기() throws IOException {
 //    Tyrant tyrant = new Tyrant();
 //    tyrant.put("key", "value");
 //    assertThat(t.get("key"), is("value"));
 
-    Socket s = new Socket("localhost", 1978);
-    OutputStream writer = s.getOutputStream();
-    writer.write(0xC8); // operation prefix
-    writer.write(0x10); // put operation
-    writer.write(0);
-    writer.write(0);
-    writer.write(0);
-    writer.write(3); // 4 byte
-    writer.write(0);
-    writer.write(0);
-    writer.write(0);
-    writer.write(5); // 4 byte
-    writer.write(new byte [] {'k', 'e', 'y'}); // key
-    writer.write(new byte [] {'v', 'a', 'l', 'u', 'e'}); // value
-    InputStream reader = s.getInputStream();
-    int status = reader.read();
-    assertThat(status, is(0));
+    new TyrantMap().put();
+  }
+
+  private class TyrantMap {
+
+    public static final int OPERATION_PREFIX = 0xC8;
+    public static final int PUT_OPERATION = 0x10;
+    private Socket socket;
+    private OutputStream writer;
+    private InputStream reader;
+
+    public void put() throws IOException {
+      String key = "key";
+      String value = "value";
+      socket = new Socket("localhost", 1978);
+      writer = socket.getOutputStream();
+      writer.write(OPERATION_PREFIX);
+      writer.write(PUT_OPERATION);
+      writer.write(0);
+      writer.write(0);
+      writer.write(0);
+      writer.write(3); // 4 byte
+      writer.write(0);
+      writer.write(0);
+      writer.write(0);
+      writer.write(5); // 4 byte
+      writer.write(key.getBytes());
+      writer.write(value.getBytes());
+      reader = socket.getInputStream();
+      int status = reader.read();
+      assertThat(status, is(0));
+    }
   }
 }
